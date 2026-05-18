@@ -1,0 +1,70 @@
+MagicShot Roulette 클래스 계층 요약
+
+Datas.Character                         // 캐릭터 객체 계층
+├── Character                            // CharacterStat을 보유하는 캐릭터 공통 기반 클래스
+├── Player : Character                   // 플레이어 전투 객체
+└── Enemy : Character                    // 적 전투 객체, EnemyType 기반 생성 함수 보유
+    ├── Slime : Enemy                    // 슬라임 몬스터
+    ├── Goblin : Enemy                   // 고블린 몬스터
+    ├── Wolf : Enemy                     // 늑대 몬스터
+    ├── Skeleton : Enemy                 // 스켈레톤 몬스터
+    ├── Orc : Enemy                      // 오크 몬스터
+    ├── Spider : Enemy                   // 거미 몬스터
+    ├── Troll : Enemy                    // 트롤 보스/몬스터
+    └── Golem : Enemy                    // 골렘 보스/몬스터
+
+Datas.Stats                             // 스탯과 진행 데이터
+├── CharacterStat                        // BattleStat과 Inventory를 보유하는 공통 스탯 기반 클래스
+├── PlayerStat : CharacterStat           // 클래스, 골드, 진행도, 플레이어 강화/회복 관리
+├── EnemyStat : CharacterStat            // EnemyType별 이름, HP, 공격력, 골드 드랍 관리
+├── BattleStat                           // HP, MP, 최대 스탯, 인벤토리 용량, 이름, 스킬 설명 보유
+└── ProgressionStat                      // 층, 행, 열 등 맵 진행 위치 관리
+
+Datas.Battle                            // 전투 시스템 데이터와 로직
+├── BattleManager                        // 전투 시작, 사격, 적 공격, 아이템/스킬 효과 처리
+├── BattleState                          // 현재 전투의 플레이어, 적, 총, 선택 대상, 페이즈 보유
+├── BattleResult                         // 전투 처리 결과 메시지와 종료 여부 전달
+├── GunInfo                              // 탄창, 실탄/가짜탄 수, 현재 탄 처리
+└── BattleVisualizer                     // 전투 화면과 탄창 상태 출력
+
+Item                                    // 아이템 계층
+├── Item                                 // 이름, 설명, ItemType을 보유하는 아이템 기반 클래스
+├── NoneItem : Item                      // 빈 아이템
+├── Rope : Item                          // 상대 턴 스킵
+├── Wine : Item                          // 현재 약실 제거
+├── Quartz : Item                        // 현재 약실 확인
+├── Potion : Item                        // HP 회복
+├── MagicPowder : Item                   // 다음 실탄 피해 강화
+├── Shield : Item                        // 다음 피격 방어
+└── ReverseRune : Item                   // 현재 약실 반전
+
+Scenes                                  // 화면 단위 흐름
+├── BaseScene                            // SceneType과 Display/Update/OnEnable/OnDisable 공통 정의
+├── MainScene : BaseScene                // 메인 화면
+├── HelpScene : BaseScene                // 도움말 화면
+├── SelectScene : BaseScene              // 플레이어 클래스와 이름 선택
+├── MapScene : BaseScene                 // 맵 경로 선택
+├── EventScene : BaseScene               // 아이템 발견 이벤트
+├── RestScene : BaseScene                // 휴식, 강화, 아이템 뽑기
+├── BattleScene : BaseScene              // 일반 전투
+└── BossScene : BaseScene                // 보스 전투
+
+Managers                                // 게임 전역 관리
+├── GameManager                          // 싱글톤, 메인 루프와 주요 매니저 보유
+├── SceneManager                         // 현재 Scene 표시와 전환 관리
+├── InputManager                         // 키 입력을 KeyInfo로 변환
+└── SaveManager                          // PlayerStat 저장 데이터 보유
+
+Map                                     // 맵과 층 구조
+├── Node                                 // 맵 노드 타입과 다음 이동 가능 노드 보유
+├── Floor                                // 층별 노드 테이블과 플레이어 위치 관리
+├── MapHandler                           // 진행도에 맞는 Floor 데이터 설정
+└── FloorVisualizer                      // 맵 출력 담당
+
+Utils                                   // 콘솔 출력 보조
+├── DisplayHelper                        // 제목, 플레이어/적 정보, 인벤토리 출력
+├── SelectVisualizer                     // 선택지 목록과 현재 선택 표시
+└── Colors                               // 콘솔 색상 상수
+
+Interfaces                              // 공통 인터페이스
+└── ICsvConvertible                      // CSV 변환용 인터페이스
